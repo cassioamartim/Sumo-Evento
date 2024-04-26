@@ -1,51 +1,26 @@
 package me.flezy;
 
 import lombok.Getter;
-import me.flezy.api.EventManager;
-import me.flezy.configuration.Config;
-import me.flezy.executor.Event;
-import me.flezy.listener.ServerListener;
-import me.flezy.listener.WaterListener;
-import me.flezy.setter.Progress;
-import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
+import me.flezy.command.EventCommand;
+import me.flezy.config.LocationConfig;
+import me.flezy.event.manager.EventManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
     @Getter
-    public static Main instance;
+    private final static EventManager eventManager = new EventManager();
 
-    public  static Config config;
-
-    static {
-        Main manager;
-        Config config;
-    }
-    @Override
-    public void onEnable() {
-        config = new Config(this);
-        instance = this;
-        load();
-    }
-
-
-    @Override
-    public void onDisable() {
-    }
+    @Getter
+    private static LocationConfig config;
 
     @Override
     public void onLoad() {
-        EventManager.getMap().clear();
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            player.kickPlayer("§aServidor reniciando.");
-        });
+        config = new LocationConfig(this);
     }
 
-    void load(){
-        getCommand("evento").setExecutor(new Event());
-        Bukkit.getPluginManager().registerEvents(new ServerListener(), this);
-        Bukkit.getPluginManager().registerEvents(new  WaterListener(), this);
-
+    @Override
+    public void onEnable() {
+        getServer().getCommandMap().register("evento", new EventCommand());
     }
 }
