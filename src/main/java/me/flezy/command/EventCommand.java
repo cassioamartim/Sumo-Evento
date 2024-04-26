@@ -5,6 +5,7 @@ import me.flezy.event.Event;
 import me.flezy.event.manager.EventManager;
 import me.flezy.event.stage.EventStage;
 import me.flezy.event.type.EventType;
+import me.flezy.event.type.list.MLG;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -50,7 +51,7 @@ public class EventCommand extends Command {
                     return false;
                 }
 
-                manager.setEvent(new Event(EventType.SUMO));
+                manager.setEvent(new MLG());
 
                 Bukkit.getOnlinePlayers().forEach(online -> online.sendMessage("§cUm evento de sumo foi iniciado! Use §e/evento entrar§c para entrar!"));
                 break;
@@ -88,7 +89,7 @@ public class EventCommand extends Command {
             }
 
             case "set": {
-                Main.getConfig().setLocation(player.getLocation(), "evento");
+                Main.getLocationConfig().setLocation(player.getLocation(), "evento");
 
                 player.sendMessage("§eO spawn do evento foi setado com sucesso!");
                 break;

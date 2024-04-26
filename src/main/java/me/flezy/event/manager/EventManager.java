@@ -22,7 +22,7 @@ public class EventManager {
 
         player.sendMessage("§eVocê entrou no evento! §b" + event.getPlayers().size() + "§e jogadores ativos!");
 
-        Location spawn = Main.getConfig().getLocation("evento");
+        Location spawn = Main.getLocationConfig().getLocation("evento");
 
         if (spawn != null)
             player.teleport(spawn);
